@@ -30,7 +30,7 @@ let doc = {
 };
 
 swaggerAutogen(outputFile, endpointFiles, doc).then(() => {
-  console.log("Documentação do Swagger gerada encontra-se no arquivo em: "+outputFile);
+  console.log("Documentação do Swagger gerada encontra-se no arquivo : "+outputFile);
   if(process.env.NODE_ENV !== 'production'){
       require("../index.js");
   }
