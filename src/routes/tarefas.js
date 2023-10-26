@@ -48,24 +48,23 @@ router.post("/getByText", async (req, res) => {
     const [result] = await connection.query(sql, values);
     await connection.end();
 
-    res.status(200).json({ data: results });
+    res.status(200).json({ data: result });
   } catch (error) {
     console.error("Error while creating user in database:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.put("/update/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   // #swagger.tags = ['Tarefas']
   try {
     const connection = await connectDB();
     const id = req.params.id;
     const { descricao, concluido } = req.body;
     const updatedFields = req.body;
-    const update_at = new Date();
 
-    const sql = "UPDATE tarefas SET ? , update_at = ? WHERE id = ?";
-    const values = [updatedFields, update_at, id];
+    const sql = "UPDATE tarefas SET ? WHERE id = ?";
+    const values = [updatedFields, id];
 
     const [result] = await connection.query(sql, values);
     await connection.end();
@@ -77,7 +76,7 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   // #swagger.tags = ['Tarefas']
   try {
     const connection = await connectDB();
